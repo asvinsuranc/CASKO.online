@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1729">
+  <meta name="description" content="Страхування автомобіля від воєнних ризиків. Порівняйте програми та отримайте попередній розрахунок вартості.">
+  <title>Воєнне КАСКО | ASV Insurance</title>
+  <style>
+    :root {
+      --navy: #0a1729;
+      --navy2: #142b49;
+      --blue: #2775f5;
+      --light: #f3f6fb;
+      --white: #ffffff;
+      --muted: #64748b;
+      --border: #dce4ef;
+      --green: #14a873;
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(1140px, 92%); margin: auto; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: 750;
+      border: 0;
+      transition: .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-white { background: white; color: var(--navy); }
+    .btn-outline { border: 1px solid var(--border); background: white; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo { font-size: 22px; font-weight: 900; letter-spacing: -.7px; }
+    .logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-links a:hover { color: var(--blue); }
+    .hero {
+      background: radial-gradient(circle at 85% 20%, #224a80 0%, transparent 40%),
+                  linear-gradient(135deg, #081526, #142e50);
+      color: white;
+      padding: 100px 0;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 55px;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.12);
+      color: #c9ddff;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+    h1 { font-size: clamp(38px, 5vw, 65px); line-height: 1.1; letter-spacing: -2px; margin: 0 0 24px; }
+    h1 span { color: #69a8ff; }
+    .hero p { color: #cbd7e8; font-size: 18px; max-width: 570px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero-visual {
+      padding: 0px;
+      background: rgba(255,255,255,.07);
+      border: 0px solid rgba(255,255,255,.16);
+      border-radius: 0px;
+      text-align: center;
+    }
+    .shield { font-size: 105px; line-height: 1.4; }
+    .hero-visual h3 { font-size: 25px; margin: 8px 0; }
+    .hero-visual p { font-size: 15px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+      margin-top: 35px;
+    }
+    .stat {
+      padding: 15px;
+      background: rgba(255,255,255,.07);
+      border-radius: 15px;
+    }
+    .stat strong { display: block; font-size: 21px; }
+    .stat small { color: #b9cbe2; }
+    section { padding: 90px 0; }
+    .section-head { max-width: 720px; margin-bottom: 42px; }
+    .kicker { color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 850; }
+    h2 { font-size: clamp(29px, 3.5vw, 43px); letter-spacing: -1.3px; line-height: 1.2; margin: 10px 0 15px; }
+    .section-head p { color: var(--muted); }
+    .light { background: var(--light); }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(15,35,60,.035);
+    }
+    .card-icon {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      background: #eaf2ff;
+      border-radius: 15px;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 20px; }
+    .card p { color: var(--muted); margin: 0; }
+    .companies { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .company { position: relative; }
+    .company-name { font-size: 31px; font-weight: 900; margin-bottom: 8px; }
+    .company p { color: var(--muted); }
+    .pill {
+      display: inline-block;
+      background: #eaf2ff;
+      color: #1d5dba;
+      padding: 6px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .checklist { list-style: none; padding: 0; margin: 22px 0; }
+    .checklist li { margin: 13px 0; padding-left: 27px; position: relative; }
+    .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr .85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .form-card, .result-card { padding: 35px; border-radius: 24px; }
+    .form-card { background: white; border: 1px solid var(--border); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-weight: 750; font-size: 14px; }
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d3ddea;
+      border-radius: 11px;
+      outline: none;
+      background: white;
+      color: var(--navy);
+    }
+    input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #2775f51c; }
+    .result-card {
+      background: linear-gradient(145deg, #10243e, #1b416e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .result-card p { color: #c5d5e8; }
+    .price { font-size: clamp(32px, 4vw, 50px); font-weight: 900; letter-spacing: -1.5px; margin: 10px 0; }
+    .result-line { display: flex; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid #ffffff25; }
+    .result-line span { color: #b8cce5; }
+    .note { font-size: 12px; color: var(--muted); margin-top: 18px; }
+    .result-card .note { color: #b8cce5; }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .step-num { color: var(--blue); font-size: 36px; font-weight: 900; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item summary { cursor: pointer; font-weight: 800; font-size: 17px; }
+    .faq-item p { color: var(--muted); margin-bottom: 0; }
+    .cta {
+      background: linear-gradient(120deg, #0b1c33, #174579);
+      color: white;
+      border-radius: 28px;
+      padding: 55px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+    .cta h2 { margin: 0 0 12px; }
+    .cta p { color: #cbd7e8; margin: 0; }
+    footer { background: #071323; color: #c6d4e6; padding: 45px 0; }
+    .footer-row { display: flex; justify-content: space-between; gap: 25px; flex-wrap: wrap; }
+    .footer-row small { color: #91a7c2; }
+    @media(max-width: 850px) {
+      .nav-links { display: none; }
+      .hero-grid, .calculator, .companies { grid-template-columns: 1fr; }
+      .cards, .steps { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 70px 0; }
+      .hero-visual { max-width: 550px; }
+      .cta { flex-direction: column; align-items: flex-start; }
+    }
+    @media(max-width: 550px) {
+      section { padding: 65px 0; }
+      .cards, .steps, .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .stats { gap: 7px; }
+      .stat { padding: 10px; }
+      .stat strong { font-size: 16px; }
+      .stat small { font-size: 10px; }
+      .hero-visual { padding: 25px; }
+      .form-card, .result-card { padding: 24px; }
+      .cta { padding: 30px; }
+      .nav .btn { padding: 11px 14px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="#">ASV<span>Insurance.</span></a>
+    <nav class="nav-links" aria-label="Головна навігація">
+      <a href="#benefits">Переваги</a>
+      <a href="#programs">Програми</a>
+      
+      <a href="#faq">Питання</a>
+    </nav>
+    
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">🛡️ Захист авто в умовах воєнного стану</span>
+        <h1>Ваш автомобіль може піти з вами <span>в укриття?</span></h1>
+        <p>На жаль, ні. Але ви можете подбати про його фінансовий захист. Дізнайтеся про страхування автомобіля від воєнних ризиків та оберіть відповідну програму.</p>
+       <div class="hero-actions">
+          
+          <a href="#programs" class="btn btn-white">Порівняти програми</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>2 програми</strong><small>Для порівняння</small></div>
+          <div class="stat"><strong>Онлайн</strong><small>Попередній розрахунок</small></div>
+          <div class="stat"><strong>Індивідуально</strong><small>Підбір умов</small></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="image/photo_2026-10-18_20-05-02.jpg" alt="Опис фотографії" width="100%" height="100%" borders="0">
+        
+      </div>
+    </div>
+  </div>
+
+  <section id="benefits">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Що важливо знати</span>
+        <h2>Хто оплатить ремонт вашого авто у випадку обстрілу</h2>
+        <p>Ваш сімейний бюджет залишиться захищеним! У разі страхового випадку страхова компанія компенсує витрати на ремонт або відновлення автомобіля в межах страхової суми та умов договору.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🚀</div>
+          <h3>Ракети та БПЛА</h3>
+          <p>Страхове покриття пошкоджень автомобіля внаслідок:
+
+- Ракетних ударів
+- Атак дронів-камікадзе (БПЛА)
+- Падіння уламків ракет і дронів
+- Падіння збитих повітряних цілей</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💥</div>
+          <h3>Вибухова хвиля</h3>
+          <p>Страхове покриття пошкоджень автомобіля внаслідок:
+
+- Ударної хвилі від вибуху
+- Пошкодження кузова та скла
+- Влучання уламків і фрагментів
+- Падіння конструкцій та уламків будівель.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" class="light">
+    <div class="container">
+      
+      <div class="companies">
+        <article class="card company">
+          <span class="pill">Варіант 01</span>
+          <div class="company-name">ТАС</div>
+          <p>Розгляньте доступні варіанти страхування автомобіля від воєнних ризиків.</p>
+          <ul class="checklist">
+            <li>Франшиза 0% при пошкодженні</li>
+            <li>Франшиза 5% при знищенні </li>
+            <li>Найнижчий тариф: від 1,77%</li>
+            <li>Старт дії через 5 днів</li>
+          </ul>
+          
+        </article>
+        <article class="card company">
+          <span class="pill">Варіант 02</span>
+          <div class="company-name" style="color:#2775f5">VUSO</div>
+          <p>Порівняйте доступні умови та оберіть програму відповідно до потреб.</p>
+          <ul class="checklist">
+          <li>Оформлення без огляду та зносу</li>
+          <li>Страхова сума 400 тис. грн — 8500 грн</li>
+          <li>Страхова сума 800 тис. грн — 16500 грн</li>
+          <li>Страхова сума 1.2 млн грн — 25000 грн</li>
+          </ul>
+          
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="light">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Як це працює</span>
+        <h2>Три кроки до оформлення</h2>
+      </div>
+      <div class="steps">
+        <div class="card">
+          <div class="step-num">01</div>
+          <h3>Розрахунок</h3>
+          <p>Вкажіть вартість, рік випуску автомобіля та регіон експлуатації. Отримайте попередній розрахунок страхування.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">02</div>
+          <h3>Оберіть страхову програму</h3>
+          <p>Порівняйте пропозиції ТАС і VUSO за вартістю, страховою сумою, покриттям та умовами виплат.</p>
+        </div>
+        <div class="card">
+          <div class="step-num">03</div>
+          <h3>Оформлення</h3>
+          <p>Погодьте умови, надайте необхідні документи та отримайте страховий поліс після оформлення й оплати.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container" style="max-width:850px">
+      <div class="section-head">
+        <span class="kicker">FAQ</span>
+        <h2>Часті запитання</h2>
+      </div>
+      <details class="faq-item">
+        <summary>Що таке КАСКО від воєнних ризиків?</summary>
+        <p>Це страхування, яке за умовами конкретного договору може покривати пошкодження автомобіля внаслідок визначених воєнних подій.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Чи покривається пошкодження від уламків?</summary>
+        <p>Так</p>
+      </details>
+      <details class="faq-item">
+        <summary>Чи діє страхування по всій Україні?</summary>
+        <p>Дія договору не поширюється:
+Тимчасово окуповані території
+Територіальні громади в зоні бойових дій
+Території в оточенні/блокуванні або на лінії розмежування</p>
+      </details>
+      <details class="faq-item">
+        <summary>Чи можна оформити поліс онлайн?</summary>
+        <p>Поліс оформлюють через спеціалістів</p>
+      </details>
+      <details class="faq-item">
+        <summary>Як отримати точну вартість?</summary>
+        <p>Зверніться до консультанта з інформацією про марку, модель, рік випуску, вартість автомобіля та регіон експлуатації.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:15px">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <h2>Перейти до оформлення</h2>
+          <p>Залиште запит консультанту та отримайте актуальні умови страхування.</p>
+        </div>
+        <a href="https://t.me/avramenko1908198333" class="btn" style="background-color: #229ED9; margin-bottom: 8px;">Зв'язатися з нами</a>
+      </div>
+    </div>
+  </section>
+    </div>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div>
+      <div class="logo" style="color:rgb(29, 15, 216)">ASV<span>Insurance.</span></div>
+      <small>Інформаційний сервіс підбору страхування</small>
+    </div>
+    <div>
+      <small>© <span id="currentYear"></span> ASV Insurance. Усі права захищені.</small>
+      <p style="font-size:12px;max-width:450px">Інформація на сайті має ознайомчий характер. Остаточні умови визначаються договором страхування.</p>
+    </div>
+</section>
+</footer>
+
+<script>
+  const formatter = new Intl.NumberFormat("uk-UA");
+
+  document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+  function chooseCompany(company) {
+    document.getElementById("company").value = company;
+    calculate();
+    document.getElementById("calculator").scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+  function calculate() {
+    const company = document.getElementById("company").value;
+    const value = Number(document.getElementById("price").value);
+    const year = Number(document.getElementById("year").value);
+    const region = document.getElementById("region").value;
+    const currentYear = new Date().getFullYear();
+
+    if (
+      !Number.isFinite(value) ||
+      value <= 0 ||
+      value > 100000000 ||
+      !Number.isInteger(year) ||
+      year < 1950 ||
+      year > currentYear + 1
+    ) {
+      alert("Перевірте вартість автомобіля та рік випуску.");
+      return;
+    }
+    
+
+    // УВАГА: ставки нижче є демонстраційними.
+    // Вони НЕ є тарифами страхових компаній.
+    const demoRates = {
+      tas: 0.018,
+      vuso: 0.021
+    };
+
+    const regionFactors = {
+      kyiv: 1.05,
+      west: 0.95,
+      center: 1,
+      south: 1.15,
+      east: 1.25
+    };
+
+    const age = currentYear - year;
+    const ageFactor = age > 10 ? 1.2 : age > 5 ? 1.1 : 1;
+
+    const estimate = Math.round(
+      value *
+      demoRates[company] *
+      regionFactors[region] *
+      ageFactor
+    );
+
+    document.getElementById("result").textContent =
+      formatter.format(estimate) + " грн";
+
+    document.getElementById("resultCompany").textContent =
+      company === "tas" ? "ТАС" : "VUSO";
+
+    document.getElementById("resultValue").textContent =
+      formatter.format(value) + " грн";
+  }
+
+  calculate();
+</script>
+</body>
+</html>
